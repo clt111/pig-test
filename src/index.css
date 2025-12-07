@@ -20,6 +20,14 @@
   --shadow: rgba(255, 182, 193, 0.3);
 }
 
+.dark {
+  --primary-pink: #e68fb0;
+  --light-pink: #2b1f27;
+  --dark-pink: #ff5fa0;
+  --white: #f9f9fb;
+  --shadow: rgba(229, 143, 176, 0.25);
+}
+
 /* 自定义动画 */
 @keyframes bounce-gentle {
   0%, 100% { transform: scale(1); }
@@ -79,4 +87,26 @@
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translate3d(0,0,0); }
+  25% { transform: translate3d(-3px, 2px, 0); }
+  50% { transform: translate3d(3px, -2px, 0); }
+  75% { transform: translate3d(-2px, -3px, 0); }
+}
+
+.shake {
+  animation: shake 0.3s ease-in-out;
+}
+
+@keyframes pig-run {
+  0% { transform: translateX(-10%) scale(0.9); opacity: 0; }
+  10% { opacity: 1; }
+  50% { transform: translateX(50%) scale(1); }
+  100% { transform: translateX(110%) scale(1.1); opacity: 0; }
+}
+
+.pig-run {
+  animation: pig-run 1.6s ease-in-out forwards;
 }
