@@ -7,13 +7,11 @@ export default function HomePage() {
   const navigate = useNavigate()
   const { 
     yesButtonSize, noButtonSize, clickCount, incrementClickCount, updateButtonSizes,
-    startChallenge, endChallenge, challengeMode, challengeScore, challengeBest,
-    dailyDate, dailyDone, loadFromStorage
+    loadFromStorage
   } = useGameStore()
   const [isAnimating, setIsAnimating] = useState(false)
   const [noButtonPos, setNoButtonPos] = useState<{ x: number; y: number } | null>(null)
   const { vw, vh } = useViewport()
-  const [countdown, setCountdown] = useState<number>(10)
   const [phrases, setPhrases] = useState<{ id: number; text: string }[]>([])
   const [combo, setCombo] = useState<number>(0)
   const [spawnPigs, setSpawnPigs] = useState<number[]>([])
@@ -40,21 +38,7 @@ export default function HomePage() {
     loadFromStorage()
   }, [loadFromStorage])
 
-  useEffect(() => {
-    if (!challengeMode) return
-    setCountdown(10)
-    const iv = setInterval(() => {
-      setCountdown((c) => {
-        if (c <= 1) {
-          clearInterval(iv)
-          endChallenge()
-          return 0
-        }
-        return c - 1
-      })
-    }, 1000)
-    return () => clearInterval(iv)
-  }, [challengeMode, endChallenge])
+  
 
   const addPhrase = (text: string) => {
     const id = Date.now() + Math.random()
@@ -148,23 +132,7 @@ export default function HomePage() {
 
         {/* 主要内容 */}
         <div className="relative z-10 text-center space-y-12">
-          {/* 每日挑战卡片 */}
-          <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20">
-            <div className="bg-white/80 dark:bg-black/30 backdrop-blur-sm rounded-full px-4 py-2 text-sm sm:text-base text-pink-600 shadow">
-              今日挑战：10秒坚持点击“不是”
-              {!challengeMode && (
-                <button onClick={startChallenge} className="ml-3 bg-pink-500 hover:bg-pink-600 text-white rounded-full px-3 py-1">
-                  开始
-                </button>
-              )}
-              {challengeMode && (
-                <span className="ml-3 text-pink-700">倒计时 {countdown}s，得分 {challengeScore}</span>
-              )}
-              {dailyDate && (
-                <span className="ml-3 text-pink-500">最佳 {challengeBest}，{dailyDone ? '今日已完成' : '今日未完成'}</span>
-              )}
-            </div>
-          </div>
+          
         {/* 问题显示区 */}
         <div className="space-y-4">
           <h1 className="text-4xl sm:text-6xl font-bold text-gradient-pink mb-2 sm:mb-4 drop-shadow-lg">
